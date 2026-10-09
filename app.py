@@ -7,8 +7,8 @@ from utility import *
 app = Flask(__name__)
 url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query="
 
-table = "ps"
-columns = ["pl_name", "pl_masse"]
+table = "pscomppars"
+columns = ["pl_name", "pl_masse", "disc_telescope", "hostname", "discoverymethod", "disc_year"]
 constraints = ["pl_masse between 0.9 and 1.1"]
 
 
@@ -17,8 +17,9 @@ def home():
 
      query = url + adql(table, columns, constraints)
      response = requests.get(query)
+     print(response.status_code)
 
-     return render_template("home.html", adql=response.json())
+     return render_template("home.html", planets=response.json())
 
 
 app.run()

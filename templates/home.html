@@ -3,9 +3,40 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <script src="https://kit.fontawesome.com/8f8f6fb184.js" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
      <title>Home</title>
 </head>
-<body>
-     <p>{{ adql }}</p>
+<body class="container">
+     <br><br>
+
+     <h1>PLANETS</h1>
+
+     {% for planet in planets %}
+
+          <div class="card" style="width: 24rem;">
+               <div class="card-body">
+                    <h5 class="card-title">{{ planet.pl_name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                    <table>
+                         <tr>
+                              <td><i class="fa-solid fa-eye"></i> {{ planet.disc_telescope }} - {{ planet.discoverymethod }} ({{ planet.disc_year }})</td>
+                         </tr>
+                         <tr>
+                              <td><i class="fa-solid fa-sun"></i> {{ planet.hostname }}</td>
+                              <td></td>
+                         </tr>
+                    </table>
+               </div>
+          </div>
+               <h3>{{ planet.pl_name }} - {{ planet.pl_masse }}</h3>
+          </div>
+
+     {% endfor %}
+
 </body>
 </html>
