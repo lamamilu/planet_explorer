@@ -4,11 +4,8 @@ from matplotlib.animation import FuncAnimation
 import matplotlib.patches as patches
 import math
 
-fig, ax = plt.subplots()
-xdata, ydata = [], []
-ln, = ax.plot([], [], 'ro')
-
 # *********** DATA ***********
+
 def calculate_E(M, e):
     E = M
     for _ in range(10):
@@ -33,22 +30,34 @@ def calculate_y():
     return a * math.sqrt(1 - math.pow(e, 2)) * math.sin(E)
 
 
-sun = {"center": (0, 0), "radius": .2, "color": "#eca53c"}
-earth = {"center": (0, 0), "radius": .2, "color": "blue"}
-
 #for data in circle_data:
      #circle = patches.Circle(data["center"], radius=data["radius"], color=data["color"], alpha=0.5)
      #ax.add_patch(circle)
 
+fig, ax = plt.subplots()
+xdata, ydata = [], []
+ln, = ax.plot([], [], 'o', color='blue')
+ax.set_xlim(-1.2, 1.2)
+ax.set_ylim(-1.2, 1.2)
+
+AU = 149597871
+pixels_per_AU = ax.transData.transform((1, 0))[0] - ax.transData.transform((0, 0))[0]
+earth_diameter_pixels = 2 * (6371 / AU * 100) * pixels_per_AU
+earth_markersize = earth_diameter_pixels * 72 / fig.dpi
+ln.set_markersize(earth_markersize)
+
+sun = {"center": (0, 0), "radius": 696340 / AU, "color": "#eca53c"}
+
+
 
 
 def init():
-    ax.set_xlim(-5, 5)
-    ax.set_ylim(-5, 5)
+    ax.set_xlim(-1.2, 1.2)
+    ax.set_ylim(-1.2, 1.2)
     return ln,
 
 def orbit(frame):
-    ax.add_patch(patches.Circle(sun["center"], radius=sun["radius"], color=sun["color"], alpha=0.5))
+    ax.add_patch(patches.Circle(sun["center"], radius=sun["radius"], color=sun["color"]))
     
     t = frame * 3
     M = 2 * math.pi * t / P
