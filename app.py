@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 
 from utility import *
@@ -6,6 +6,8 @@ from planet_sim import *
 
 
 app = Flask(__name__)
+app.secret_key = "planets!"
+
 url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query="
 
 table = "pscomppars"
@@ -20,6 +22,10 @@ def home():
      response = requests.get(query)
      print(response.status_code)
 
+     if response.status_code != 200:
+          session["message"] = response.text[:2000]
+          return redirect(url_for("error", code = response.status_code))
+
 
      ani = orbit_animation(response.json()[0], 1)
 
@@ -29,4 +35,11 @@ def home():
      return render_template("home.html", planets=response.json(), animation=animation)
 
 
+@app.route("/error/<code>", methods=["GET", "POST"])
+def error(code):
+     return render_template("error.html", code=code, message=session.pop("message", None))
+
+
+
 app.run()
+
