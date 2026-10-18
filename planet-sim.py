@@ -61,16 +61,20 @@ t = 0
 ellipse_x, ellipse_y = draw_orbit()
 
 
-hor = a
-ver = a * math.sqrt(1 - e**2)
-if hor 
-scale = a * (1 + e) * 1.1
 
-fig, ax = plt.subplots(figsize=(10,7))
+width = 7
+height = 7
+
+scale = a * 1.1
+x_min = scale + a*e
+x_max = scale - a*e
+
+fig, ax = plt.subplots(figsize=(width, height))
 plt.plot(ellipse_x, ellipse_y, label='Orbit outline', color='green')
 ln, = ax.plot([], [], 'o', color='blue')
-ax.set_xlim(-(scale), scale)
+ax.set_xlim(-(x_min), x_max) 
 ax.set_ylim(-(scale), scale)
+ax.set_aspect("equal")
 
 
 
@@ -79,13 +83,13 @@ earth_diameter_pixels = 2 * (p["pl_rade"] / AU * 10) * pixels_per_AU # PLANET SC
 earth_markersize = earth_diameter_pixels * 72 / fig.dpi 
 ln.set_markersize(earth_markersize)
 
-star = {"center": (a*e, 0), "radius": p["st_rad"] * 0.00465} # r in [stellar radius] devided by stellar radius in AU
+star = {"center": (0, 0), "radius": p["st_rad"] * 0.00465} # r in [stellar radius] devided by stellar radius in AU
 
 
 
 
 def init():
-    ax.set_xlim(-(scale), scale)
+    ax.set_xlim(-(x_min), x_max)  
     ax.set_ylim(-(scale), scale)     
     return ln,
 
