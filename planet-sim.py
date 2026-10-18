@@ -10,7 +10,7 @@ url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query="
 
 table = "pscomppars"
 columns = ["pl_name", "pl_masse", "hostname", "pl_orbeccen", "pl_orbper", "pl_orbsmax", "st_rad", "pl_rade"]
-constraints = ["pl_name = '16 Cyg B b'"]
+constraints = ["pl_name = '16 Cyg B b'"] # 16 Cyg B b, Kepler-10 b
 
 query = url + adql(table, columns, constraints)
 p = requests.get(query)
@@ -77,14 +77,14 @@ ax.set_ylim(-(scale), scale)
 ax.set_aspect("equal")
 
 
-
+fig.canvas.draw()
 pixels_per_AU = ax.transData.transform((1, 0))[0] - ax.transData.transform((0, 0))[0]
-earth_diameter_pixels = 2 * (p["pl_rade"] / AU * 10) * pixels_per_AU # PLANET SCALE: *10
+earth_diameter_pixels = 2 * (p["pl_rade"] * 6371 / AU * 10) * pixels_per_AU # PLANET SCALE: *10
 earth_markersize = earth_diameter_pixels * 72 / fig.dpi 
 ln.set_markersize(earth_markersize)
 
-star = {"center": (0, 0), "radius": p["st_rad"] * 0.00465} # r in [stellar radius] devided by stellar radius in AU
-
+star = {"center": (0, 0), "radius": p["st_rad"] * 695700 / AU} # r in [stellar radius] devided by stellar radius in AU
+ax.add_patch(patches.Circle(star["center"], radius=star["radius"], color="#eca53c"))
 
 
 
@@ -94,9 +94,8 @@ def init():
     return ln,
 
 def orbit(frame):
-    ax.add_patch(patches.Circle(star["center"], radius=star["radius"], color="#eca53c"))
     
-    t = frame
+    t = frame * P/365.25
     M = 2 * math.pi * t / P
     E = calculate_E(M, e)
 
