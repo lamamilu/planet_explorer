@@ -21,7 +21,10 @@ def home():
      print(response.status_code)
 
 
-     animation = orbit_animation(response.json()[0], 1)
+     ani = orbit_animation(response.json()[0], 1)
+
+     ani_list = ani.split('width="700" height="700"')
+     animation = ani_list[0] + 'width="400" height="400"' + ani_list[1]
 
      return render_template("home.html", planets=response.json(), animation=animation)
 

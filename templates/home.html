@@ -11,15 +11,17 @@
 <body class="container">
      <br><br>
 
-     <h1>PLANETS</h1>
-
-     {{ animation | safe }}
+     <h1>{{ planet.pl_name }}</h1>
 
      {% for planet in planets %}
 
-          <div class="card" style="width: 24rem;">
+          <div class="card" style="max-width: 700px; max-height: 400px;">
+               <div class="d-flex flex-column flex-md-row">
+               <div class="orbit-video">
+                    {{ animation | safe }}
+               </div>
                <div class="card-body">
-                    <h5 class="card-title">{{ planet.pl_name }}</h5>
+                    <h5 class="card-title">Orbit simulation</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="#" class="card-link">Card link</a>
@@ -33,10 +35,18 @@
                               <td></td>
                          </tr>
                     </table>
+
+                    <form method="POST">
+                         <label for="range1" class="form-label">Example range</label>
+                         <div class="form-range">
+                              <input type="range" class="form-range-input" name="speed">
+                         </div>
+                         <button type="submit" name="action" value="set-speed">Apply</button>
+                    </form>
+               </div>
                </div>
           </div>
                <h3>{{ planet.pl_name }} - {{ planet.pl_masse }}</h3>
-          </div>
 
      {% endfor %}
 

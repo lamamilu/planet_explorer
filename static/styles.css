@@ -1,0 +1,15 @@
+.orbit-video {
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.orbit-video video {
+    display: block;
+    height: auto;
+}
+
+@media (max-width: 767px) {
+    .orbit-video {
+        width: 100%;
+    }
+}
