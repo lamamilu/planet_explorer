@@ -3,12 +3,20 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import matplotlib.patches as patches
 import math
+from utility import *
+import requests
 
 url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query="
 
 table = "pscomppars"
-columns = ["pl_name", "pl_masse", "disc_telescope", "hostname", "discoverymethod", "disc_year"]
-constraints = ["pl_masse between 0.9 and 1.1", "discoverymethod = 'Transit'", "sy_snum = 1"]
+columns = ["pl_name", "pl_masse", "hostname", "pl_orbeccen", "pl_orbper", "pl_orbsmax"]
+constraints = ["pl_name = 'Kepler-10 b'"]
+
+query = url + adql(table, columns, constraints)
+p = requests.get(query)
+print(p.status_code)
+p = p.json()[0]
+print(p)
 
 
 # *********** DATA ***********
@@ -22,9 +30,9 @@ def calculate_E(M, e):
         E = E - (E - e * math.sin(E) - M) / (1 - e * math.cos(E))
     return E
 
-a = .5          # AU
-e = 0.0167          # eccentricity
-P = 365.256         # days
+a = p["pl_orbsmax"] # AU
+e = p["pl_orbeccen"]# eccentricity
+P = p["pl_orbper"]  # days to orbit
 
 t = 0               # days since perihelion
 M = 2 * math.pi * t / P # mean anomally
