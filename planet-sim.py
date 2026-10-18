@@ -27,6 +27,9 @@ def calculate_E(M, e):
         E = E - (E - e * math.sin(E) - M) / (1 - e * math.cos(E))
     return E
 
+r = p["pl_rade"]
+sr = p["st_rad"]
+
 a = p["pl_orbsmax"]      # AU
 e = p["pl_orbeccen"]     # eccentricity
 P = p["pl_orbper"]       # days to orbit
@@ -39,6 +42,9 @@ x = a * (math.cos(E) - e)
 y = a * math.sqrt(1 - e**2) * math.sin(E)
 
 AU = 149597870.7 #km
+
+
+speed = 1
 
 # ****************************
 
@@ -79,11 +85,11 @@ ax.set_aspect("equal")
 
 fig.canvas.draw()
 pixels_per_AU = ax.transData.transform((1, 0))[0] - ax.transData.transform((0, 0))[0]
-earth_diameter_pixels = 2 * (p["pl_rade"] * 6371 / AU * 10) * pixels_per_AU # PLANET SCALE: *10
+earth_diameter_pixels = 2 * (r * 6371 / AU * 10) * pixels_per_AU # PLANET SCALE: *10
 earth_markersize = earth_diameter_pixels * 72 / fig.dpi 
 ln.set_markersize(earth_markersize)
 
-star = {"center": (0, 0), "radius": p["st_rad"] * 695700 / AU} # r in [stellar radius] devided by stellar radius in AU
+star = {"center": (0, 0), "radius": sr * 695700 / AU} # r in [stellar radius] devided by stellar radius in AU
 ax.add_patch(patches.Circle(star["center"], radius=star["radius"], color="#eca53c"))
 
 
@@ -95,7 +101,7 @@ def init():
 
 def orbit(frame):
     
-    t = frame * P/365.25
+    t = frame /10 *speed
     M = 2 * math.pi * t / P
     E = calculate_E(M, e)
 
@@ -106,5 +112,7 @@ def orbit(frame):
 
     return ln,
 
-ani = FuncAnimation(fig, orbit, frames=None, init_func=init, blit=False)
+fps = 60
+
+ani = FuncAnimation(fig, orbit, frames=None, interval=1000/fps, init_func=init, blit=False)
 plt.show()
