@@ -1,10 +1,14 @@
+import matplotlib
+matplotlib.use("Agg")
+
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+from matplotlib.animation import FuncAnimation, writers
 import matplotlib.patches as patches
 import math
 from utility import *
 import requests
+import ffmpeg
 
 # url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query="
 
@@ -43,9 +47,6 @@ def orbit_animation(p, speed):
      y = a * math.sqrt(1 - e**2) * math.sin(E)
 
      AU = 149597870.7 #km
-
-
-     speed = 1
 
      # ****************************
 
@@ -115,8 +116,10 @@ def orbit_animation(p, speed):
 
      fps = 60
 
-     ani = FuncAnimation(fig, orbit, frames=None, interval=1000/fps, init_func=init, blit=False)
+     ani = FuncAnimation(fig, orbit, frames=120, interval=1000/fps, init_func=init, blit=False)
 
-     return ani.to_html5_video()
+     video = ani.to_html5_video()
+     plt.close(fig)
+     return video
 
      # plt.show()

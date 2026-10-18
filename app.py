@@ -21,19 +21,9 @@ def home():
      print(response.status_code)
 
 
-     file = "templates/home.html"
+     animation = orbit_animation(response.json()[0], 1)
 
-     with open(file, "r", encoding="utf-8") as file:
-          html_content = file.read()
-
-     updated_html = html_content.replace("<!-- ANIMATION_PLACEHOLDER -->", orbit_animation(response.json()[0], 1))
-
-     with open(file, "w", encoding="utf-8") as file:
-          file.write(updated_html)
-
-     plt.close()
-
-     return render_template("home.html", planets=response.json())
+     return render_template("home.html", planets=response.json(), animation=animation)
 
 
 app.run()
