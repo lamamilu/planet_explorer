@@ -89,9 +89,14 @@ def orbit_animation(p, speed):
      pixels_per_AU = ax.transData.transform((1, 0))[0] - ax.transData.transform((0, 0))[0]
      earth_diameter_pixels = 2 * (r * 6371 / AU * 10) * pixels_per_AU # PLANET SCALE: *10
      earth_markersize = earth_diameter_pixels * 72 / fig.dpi 
+     if earth_markersize < 8:
+          earth_markersize = 8
      ln.set_markersize(earth_markersize)
 
-     star = {"center": (0, 0), "radius": sr * 695700 / AU} # r in [stellar radius] devided by stellar radius in AU
+     sun_radius = sr * 695700 / AU
+     if sun_radius < scale / 20:
+          sun_radius = scale / 20
+     star = {"center": (0, 0), "radius": sun_radius} # r in [stellar radius] devided by stellar radius in AU
      ax.add_patch(patches.Circle(star["center"], radius=star["radius"], color="#eca53c"))
 
 
@@ -116,7 +121,7 @@ def orbit_animation(p, speed):
 
      fps = 60
 
-     ani = FuncAnimation(fig, orbit, frames=120, interval=1000/fps, init_func=init, blit=False)
+     ani = FuncAnimation(fig, orbit, frames=math.floor(P*10/speed), interval=1000/fps, init_func=init, blit=False)
 
      video = ani.to_html5_video()
      plt.close(fig)

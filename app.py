@@ -39,7 +39,7 @@ def home():
           print("planet FOUND in planets.json\nLOADING PLANET FROM PLANETS.JSON")
           data = planets[planet]
      else:
-          print("planet NOT FOUND in planets.json\nREQUESTING PLANET FROM NASA")
+          print("planet NOT FOUND in planets.json\nREQUESTING PLANET FROM NASA\n")
           constraints = [f"pl_name = '{planet}'"]
           query = url + adql(table, columns, constraints)
           response = requests.get(query)
@@ -61,7 +61,7 @@ def home():
                speed = int(request.form.get("speed"))
                speed = convert_speed(speed)
 
-     print("speed:", speed)
+     print("MAKING AN ANIMATION (speed: "+str(speed)+")\n")
      ani = orbit_animation(data, speed)
 
      ani_list = ani.split('width="700" height="700"')
