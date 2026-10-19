@@ -1,0 +1,15 @@
+{
+     "16 Cyg B b": {
+          "pl_name": "16 Cyg B b",
+          "pl_masse": null,
+          "disc_telescope": "Multiple Telescopes",
+          "hostname": "16 Cyg B",
+          "discoverymethod": "Radial Velocity",
+          "disc_year": 1996,
+          "pl_orbeccen": 0.68,
+          "pl_orbper": 798.5,
+          "pl_orbsmax": 1.66,
+          "st_rad": 1.13,
+          "pl_rade": 13.5
+     }
+}

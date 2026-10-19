@@ -1,3 +1,5 @@
+import json
+
 def adql(table, columns, constraints):
      str = "select " + ','.join(columns) + " from " + table
 
@@ -19,3 +21,8 @@ def convert_speed(value):
         return 5 ** (value / 10)
     else:
         return 5 * 10 ** ((value - 10) / 40)
+
+
+def update_planets(planets):
+     with open("planets.json", "w") as f:
+          json.dump(planets, f, indent=5)
