@@ -9,3 +9,13 @@ def adql(table, columns, constraints):
      str = str + "&format=json"
 
      return str.replace(" ", "+")
+
+def convert_speed(value):
+    if value < -10:
+        return 0.2 * 10 ** ((value + 10) / 40)
+    elif value < 0:
+        return 5 ** (value / 10)
+    elif value <= 10:
+        return 5 ** (value / 10)
+    else:
+        return 5 * 10 ** ((value - 10) / 40)

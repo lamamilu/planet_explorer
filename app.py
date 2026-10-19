@@ -26,13 +26,20 @@ def home():
           session["message"] = response.text[:2000]
           return redirect(url_for("error", code = response.status_code))
 
+     speed=1
+     if request.method == "POST":
+          action = request.form.get("action")
+          if action == "set-speed":
+               speed = int(request.form.get("speed"))
+               speed = convert_speed(speed)
 
-     ani = orbit_animation(response.json()[0], 1)
+
+     ani = orbit_animation(response.json()[0], speed)
 
      ani_list = ani.split('width="700" height="700"')
      animation = ani_list[0] + 'width="400" height="400"' + ani_list[1]
 
-     return render_template("home.html", planets=response.json(), animation=animation)
+     return render_template("home.html", planet=response.json()[0], animation=animation)
 
 
 @app.route("/error/<code>", methods=["GET", "POST"])

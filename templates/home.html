@@ -13,10 +13,8 @@
 
      <h1>{{ planet.pl_name }}</h1>
 
-     {% for planet in planets %}
-
-          <div class="card" style="max-width: 700px; max-height: 400px;">
-               <div class="d-flex flex-column flex-md-row">
+     <div class="card" style="max-width: 1000px; max-height: 400px;">
+          <div class="d-flex flex-column flex-md-row">
                <div class="orbit-video">
                     {{ animation | safe }}
                </div>
@@ -37,18 +35,23 @@
                     </table>
 
                     <form method="POST">
-                         <label for="range1" class="form-label">Example range</label>
-                         <div class="form-range">
-                              <input type="range" class="form-range-input" name="speed">
+                         <label for="range1" class="form-label">Speed</label>
+                         <div class="form-range" style="width:500px;">
+                              <input type="range" name="speed" class="form-range-input" min="-50" max="50" step="5" value="0" list="rangeTicksList" id="rangeTicks">
                          </div>
+                              <datalist id="rangeTicksList">
+                              <option value="-50" label="Slow"></option>
+                              <option value="-25"></option>
+                              <option value="0" label="Accurate"></option>
+                              <option value="25"></option>
+                              <option value="50" label="Fast"></option>
+                         </datalist>
+
                          <button type="submit" name="action" value="set-speed">Apply</button>
                     </form>
                </div>
-               </div>
           </div>
-               <h3>{{ planet.pl_name }} - {{ planet.pl_masse }}</h3>
-
-     {% endfor %}
+     </div>
 
 </body>
 </html>
