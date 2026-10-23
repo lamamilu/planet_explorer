@@ -108,7 +108,7 @@ def orbit_animation(p, speed):
 
      def orbit(frame):
      
-          t = frame /10 *speed
+          t = frame /2 *speed
           M = 2 * math.pi * t / P
           E = calculate_E(M, e)
 
@@ -121,7 +121,7 @@ def orbit_animation(p, speed):
 
      fps = 60
 
-     ani = FuncAnimation(fig, orbit, frames=math.floor(P*10/speed), interval=1000/fps, init_func=init, blit=False)
+     ani = FuncAnimation(fig, orbit, frames=math.floor(P*2/speed), interval=1000/fps, init_func=init, blit=False)
 
      video = ani.to_html5_video()
      plt.close(fig)

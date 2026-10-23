@@ -22,7 +22,7 @@ url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query="
 
 table = "pscomppars"
 columns = ["pl_name", "pl_masse", "disc_telescope", "hostname", "discoverymethod", "disc_year", "pl_orbeccen", "pl_orbper", "pl_orbsmax", "st_rad", "pl_rade"]
-# constraints = ["pl_name = 'Kepler-10 b'"] # "pl_masse between 0.9 and 1.1", "discoverymethod = 'Transit'", "sy_snum = 1"
+# constraints = ["pl_name = 'Kepler-10 b / 16 Cyg B b'"] # "pl_masse between 0.9 and 1.1", "discoverymethod = 'Transit'", "sy_snum = 1"
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -36,7 +36,7 @@ def home():
 
 
      if planet in planets:
-          print("planet FOUND in planets.json\nLOADING PLANET FROM PLANETS.JSON")
+          print("planet FOUND in planets.json\nLOADING PLANET FROM PLANETS.JSON\n")
           data = planets[planet]
      else:
           print("planet NOT FOUND in planets.json\nREQUESTING PLANET FROM NASA\n")
@@ -54,7 +54,6 @@ def home():
                return redirect(url_for("error", code = response.status_code))
 
 
-     speed=1
      if request.method == "POST":
           action = request.form.get("action")
           if action == "set-speed":

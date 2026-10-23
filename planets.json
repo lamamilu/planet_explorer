@@ -11,5 +11,18 @@
           "pl_orbsmax": 1.66,
           "st_rad": 1.13,
           "pl_rade": 13.5
+     },
+     "Kepler-10 b": {
+          "pl_name": "Kepler-10 b",
+          "pl_masse": 3.24,
+          "disc_telescope": "0.95 m Kepler Telescope",
+          "hostname": "Kepler-10",
+          "discoverymethod": "Transit",
+          "disc_year": 2011,
+          "pl_orbeccen": 0.0,
+          "pl_orbper": 0.8374907,
+          "pl_orbsmax": 0.01685,
+          "st_rad": 1.065,
+          "pl_rade": 1.47
      }
 }
