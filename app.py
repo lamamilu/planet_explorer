@@ -66,7 +66,7 @@ def home():
      ani_list = ani.split('width="700" height="700"')
      animation = ani_list[0] + 'width="400" height="400"' + ani_list[1]
 
-     return render_template("home.html", planet=data, animation=animation)
+     return render_template("home.html", planet=data, animation=animation, speed=speed, value=reverse_speed(speed))
 
 
 @app.route("/error/<code>", methods=["GET", "POST"])

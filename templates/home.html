@@ -34,18 +34,27 @@
                          </tr>
                     </table>
 
+                    <br><br>
+
                     <form method="POST">
-                         <label for="range1" class="form-label">Speed</label>
-                         <div class="form-range" style="width:500px;">
-                              <input type="range" name="speed" class="form-range-input" min="-51" max="49" step="5" value="0" list="rangeTicksList" id="rangeTicks">
-                         </div>
-                              <datalist id="rangeTicksList">
-                              <option value="-50" label="Slow"></option>
-                              <option value="-25"></option>
-                              <option value="0" label="Accurate"></option>
-                              <option value="25"></option>
-                              <option value="50" label="Fast"></option>
-                         </datalist>
+
+                         <table><tr>
+
+                              <td>
+                                   <label for="range1" class="form-label">Speed ({{ speed }})</label>
+                                   <div class="form-range" style="width:500px;">
+                                        <input type="range" name="speed" class="form-range-input" min="-51" max="49" step="5" value="{{ value }}" list="rangeTicksList" id="rangeTicks">
+                                   </div>
+                                        <datalist id="rangeTicksList">
+                                        <option value="-50" label="Slow"></option>
+                                        <option value="-25"></option>
+                                        <option value="0" label="Accurate"></option>
+                                        <option value="25"></option>
+                                        <option value="50" label="Fast"></option>
+                                   </datalist>
+                              </td>
+
+                         </tr></table>
 
                          <button type="submit" name="action" value="set-speed">Apply</button>
                     </form>

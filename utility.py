@@ -1,4 +1,5 @@
 import json
+import math
 
 def adql(table, columns, constraints):
      str = "select " + ','.join(columns) + " from " + table
@@ -19,6 +20,12 @@ def convert_speed(value):
           return value
      else:
           return 1.05**-value
+
+def reverse_speed(speed):
+     if speed >= 1:
+          return speed - 1
+     else:
+          return math.log(speed, 1.05)
 
 
 def update_planets(planets):
