@@ -11,20 +11,22 @@
 <body class="container">
      <br><br>
 
-     <div class="alert theme-info" role="alert">
-          <p><b>Don't know any planets (yet)?</p>
-     </div><br>
+     <h1>NASA Exoplanet Archive ORBIT SIMULATOR</h1>
 
-     <form method="POST">
-          <div class="input-group" style="width: 30%">
-               <input class="form-control" placeholder="Search for a planet" name="search">
-               <button type="submit" class="btn btn-info input-group-btn" name="action" value="search"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
-          </div>
-     </form>
+     <div class="alert alert-info">
+               <form method="POST">
+                    <div class="input-group" style="width: 30%">
+                         <input class="form-control" placeholder="Search for a planet" name="search">
+                         <button type="submit" class="btn btn-info input-group-btn" name="action" value="search"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+                    </div>
+               </form><br>
 
-     <br><br>
+          <p><b>Don't know any planets (yet)?</b> Try some of these: Kepler-10 b, 16 Cyg B b, or browse exoplanets at <a href="https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=PS" class="alert-link">exoplanetarchive.ipac.caltech.edu</a>.</p>
+     </div>
 
-     <div class="card" style="max-width: 1000px; max-height: 400px;">
+     <br>
+
+     <div class="card" style="max-height: 400px;">
           <div class="d-flex flex-column flex-md-row">
                <div class="orbit-video">
                     {{ animation | safe }}
@@ -35,13 +37,12 @@
 
                     <i class="fa-solid fa-eye"></i> {{ planet.disc_telescope }} - {{ planet.discoverymethod }} ({{ planet.disc_year }})<br>
                     <i class="fa-solid fa-sun"></i> {{ planet.hostname }}<br>
-                    <i class="fa-solid fa-weight-hanging"></i> {{ planet.pl_masse }}x the mass of Earth<br>
+                    <i class="fa-solid fa-weight-hanging"></i>{% if planet.pl_masse != None %}{{ planet.pl_masse }}x the mass of Earth {% else %} unknown{% endif %}<br>
                     
-
-                    <br><br>
+                    <br>
 
                     <table><tr>
-                         <form method="POST"></form>
+                         <form method="POST">
                               <td>
                                    <label for="range1" class="form-label"><b>Speed</b> ({{ speed }}):</label>
                                    <div class="form-range theme-info" style="width:200px;">
@@ -69,6 +70,15 @@
                     </tr></table>
                </div>
           </div>
+     </div>
+
+     <br>
+
+     <div class="alert alert-warning">
+          <h4 class="alert-heading">Notice!</h4>
+          <p>The orbit is almost always not a perfect circle but rather an ellipse. This causes the planet's distance from the star to constantly change.</p>
+          <hr>
+          <p class="mb-0">The planet slows down as it gets further away from the star and speeds up as it gets closer. This happens because the gravity of the star's pull on the planet gets stronger the closer they are.</p>
      </div>
 
 </body>
