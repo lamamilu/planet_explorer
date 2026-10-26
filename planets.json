@@ -50,5 +50,18 @@
           "pl_orbsmax": 0.4603,
           "st_rad": 1.05,
           "pl_rade": 11.56766808
+     },
+     "4 UMa b": {
+          "pl_name": "4 UMa b",
+          "pl_masse": null,
+          "disc_telescope": "2.0 m Alfred Jensch Telescope",
+          "hostname": "4 UMa",
+          "discoverymethod": "Radial Velocity",
+          "disc_year": 2006,
+          "pl_orbeccen": 0.453,
+          "pl_orbper": 270.27,
+          "pl_orbsmax": 0.877,
+          "st_rad": 18.11,
+          "pl_rade": 12.6
      }
 }
