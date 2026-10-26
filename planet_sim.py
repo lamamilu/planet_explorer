@@ -93,10 +93,16 @@ def orbit_animation(p, speed):
           earth_markersize = 8
      ln.set_markersize(earth_markersize)
 
-     sun_radius = sr * 695700 / AU
-     if sun_radius < scale / 20:
-          sun_radius = scale / 20
-     star = {"center": (0, 0), "radius": sun_radius} # r in [stellar radius] devided by stellar radius in AU
+     planet_scale = earth_markersize * fig.dpi / 72 / 2 / pixels_per_AU / r / 6371 / (1/AU)
+
+     star_radius = sr * 695700 / AU
+     star_scale = 1
+     if star_radius < scale / 20:
+          star_radius = scale / 20
+          star_scale = star_radius / sr / (695700 / AU)
+     star = {"center": (0, 0), "radius": star_radius} # r in [stellar radius] devided by stellar radius in AU
+
+
      ax.add_patch(patches.Circle(star["center"], radius=star["radius"], color="#eca53c"))
 
 
@@ -121,10 +127,20 @@ def orbit_animation(p, speed):
 
      fps = 60
 
-     ani = FuncAnimation(fig, orbit, frames=math.floor(P*2/speed), interval=1000/fps, init_func=init, blit=False)
+     frames = math.floor(P*2/speed)
+     if frames <= 60 * 1:
+          speed = P*2/60
+          frames = math.floor(P*2/speed)
+     elif frames > 60 * 10:
+          speed = P*2/600
+          frames = math.floor(P*2/speed)
+
+     ani = FuncAnimation(fig, orbit, frames=frames, interval=1000/fps, init_func=init, blit=False)
 
      video = ani.to_html5_video()
      plt.close(fig)
-     return video
+
+
+     return video, round(planet_scale, ndigits=2), round(star_scale, ndigits=2), round(speed, ndigits=3)
 
      # plt.show()

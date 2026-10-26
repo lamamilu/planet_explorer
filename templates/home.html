@@ -11,7 +11,18 @@
 <body class="container">
      <br><br>
 
-     <h1>{{ planet.pl_name }}</h1>
+     <div class="alert theme-info" role="alert">
+          <p><b>Don't know any planets (yet)?</p>
+     </div><br>
+
+     <form method="POST">
+          <div class="input-group" style="width: 30%">
+               <input class="form-control" placeholder="Search for a planet" name="search">
+               <button type="submit" class="btn btn-info input-group-btn" name="action" value="search"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+          </div>
+     </form>
+
+     <br><br>
 
      <div class="card" style="max-width: 1000px; max-height: 400px;">
           <div class="d-flex flex-column flex-md-row">
@@ -21,28 +32,19 @@
                <div class="card-body">
                     <h5 class="card-title">{{ planet.pl_name }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">orbit simulation</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                    <table>
-                         <tr>
-                              <td><i class="fa-solid fa-eye"></i> {{ planet.disc_telescope }} - {{ planet.discoverymethod }} ({{ planet.disc_year }})</td>
-                         </tr>
-                         <tr>
-                              <td><i class="fa-solid fa-sun"></i> {{ planet.hostname }}</td>
-                              <td></td>
-                         </tr>
-                    </table>
+
+                    <i class="fa-solid fa-eye"></i> {{ planet.disc_telescope }} - {{ planet.discoverymethod }} ({{ planet.disc_year }})<br>
+                    <i class="fa-solid fa-sun"></i> {{ planet.hostname }}<br>
+                    <i class="fa-solid fa-weight-hanging"></i> {{ planet.pl_masse }}x the mass of Earth<br>
+                    
 
                     <br><br>
 
-                    <form method="POST">
-
-                         <table><tr>
-
+                    <table><tr>
+                         <form method="POST"></form>
                               <td>
-                                   <label for="range1" class="form-label">Speed ({{ speed }})</label>
-                                   <div class="form-range" style="width:500px;">
+                                   <label for="range1" class="form-label"><b>Speed</b> ({{ speed }}):</label>
+                                   <div class="form-range theme-info" style="width:200px;">
                                         <input type="range" name="speed" class="form-range-input" min="-51" max="49" step="5" value="{{ value }}" list="rangeTicksList" id="rangeTicks">
                                    </div>
                                         <datalist id="rangeTicksList">
@@ -52,12 +54,19 @@
                                         <option value="25"></option>
                                         <option value="50" label="Fast"></option>
                                    </datalist>
-                              </td>
+                                   <button type="submit" name="action" value="set-speed">Apply</button>
+                              </form>
+                         </td>
 
-                         </tr></table>
+                         <td>
+                              <b>Scale</b> (planets are enlarged):
+                              <p>
+                                   Planet: {{ planet_scale }}x    <br>
+                                   Star: {{ star_scale }}x
+                              </p>
+                         </td>
 
-                         <button type="submit" name="action" value="set-speed">Apply</button>
-                    </form>
+                    </tr></table>
                </div>
           </div>
      </div>

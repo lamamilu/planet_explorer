@@ -25,12 +25,13 @@ columns = ["pl_name", "pl_masse", "disc_telescope", "hostname", "discoverymethod
 # constraints = ["pl_name = 'Kepler-10 b / 16 Cyg B b'"] # "pl_masse between 0.9 and 1.1", "discoverymethod = 'Transit'", "sy_snum = 1"
 
 
-@app.route("/", methods=["GET", "POST"])
-def home():
+@app.route("/<planet>", methods=["GET", "POST"])
+def home(planet):
+
+     speed = 1
+
 
      print("\n-----------------------------------------------------------------\n")
-
-     planet = "16 Cyg B b"
 
      print("looking for planet:", planet)
 
@@ -56,17 +57,24 @@ def home():
 
      if request.method == "POST":
           action = request.form.get("action")
+
+          if action == "search":
+               search = request.form.get("search")
+               return redirect(url_for("home", planet=search))
+
+
           if action == "set-speed":
                speed = int(request.form.get("speed"))
                speed = convert_speed(speed)
+               
 
      print("MAKING AN ANIMATION (speed: "+str(speed)+")\n")
-     ani = orbit_animation(data, speed)
+     ani, planet_scale, star_scale, speed = orbit_animation(data, speed)
 
      ani_list = ani.split('width="700" height="700"')
      animation = ani_list[0] + 'width="400" height="400"' + ani_list[1]
 
-     return render_template("home.html", planet=data, animation=animation, speed=speed, value=reverse_speed(speed))
+     return render_template("home.html", planet=data, animation=animation, speed=speed, value=reverse_speed(speed), planet_scale=planet_scale, star_scale=star_scale)
 
 
 @app.route("/error/<code>", methods=["GET", "POST"])
