@@ -6,7 +6,7 @@
 
      <script src="https://kit.fontawesome.com/8f8f6fb184.js" crossorigin="anonymous"></script>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-     <title>Home</title>
+     <title>Exoplanet Orbit Sim</title>
 </head>
 <body class="container">
      <br><br>
@@ -37,7 +37,7 @@
 
                     <i class="fa-solid fa-eye"></i> {{ planet.disc_telescope }} - {{ planet.discoverymethod }} ({{ planet.disc_year }})<br>
                     <i class="fa-solid fa-sun"></i> {{ planet.hostname }}<br>
-                    <i class="fa-solid fa-weight-hanging"></i>{% if planet.pl_masse != None %}{{ planet.pl_masse }}x the mass of Earth {% else %} unknown{% endif %}<br>
+                    <i class="fa-solid fa-weight-hanging"></i> {% if planet.pl_masse != None %}{{ planet.pl_masse }}x the mass of Earth {% else %}unknown{% endif %}<br>
                     
                     <br>
 
@@ -55,12 +55,12 @@
                                         <option value="25"></option>
                                         <option value="50" label="Fast"></option>
                                    </datalist>
-                                   <button type="submit" name="action" value="set-speed">Apply</button>
+                                   <button type="submit" name="action" value="set-speed" class="btn btn-info">Apply</button>
                               </form>
                          </td>
 
                          <td>
-                              <b>Scale</b> (planets are enlarged):
+                              <b>Scale</b> (enlarged for visibility):
                               <p>
                                    Planet: {{ planet_scale }}x    <br>
                                    Star: {{ star_scale }}x

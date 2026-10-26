@@ -24,5 +24,31 @@
           "pl_orbsmax": 0.01685,
           "st_rad": 1.065,
           "pl_rade": 1.47
+     },
+     "24 Boo b": {
+          "pl_name": "24 Boo b",
+          "pl_masse": null,
+          "disc_telescope": "1.88 m Telescope",
+          "hostname": "24 Boo",
+          "discoverymethod": "Radial Velocity",
+          "disc_year": 2018,
+          "pl_orbeccen": 0.032,
+          "pl_orbper": 30.33,
+          "pl_orbsmax": 0.194,
+          "st_rad": 12.19,
+          "pl_rade": 13.9
+     },
+     "HD 80606 b": {
+          "pl_name": "HD 80606 b",
+          "pl_masse": 1323.4692695887,
+          "disc_telescope": "Multiple Telescopes",
+          "hostname": "HD 80606",
+          "discoverymethod": "Radial Velocity",
+          "disc_year": 2001,
+          "pl_orbeccen": 0.93183,
+          "pl_orbper": 111.436765,
+          "pl_orbsmax": 0.4603,
+          "st_rad": 1.05,
+          "pl_rade": 11.56766808
      }
 }
