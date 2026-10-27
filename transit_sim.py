@@ -30,6 +30,12 @@ def calculate_E(M, e):
           E = E - (E - e * math.sin(E) - M) / (1 - e * math.cos(E))
      return E
 
+def calculate_M(E, e):
+     M = E
+     for i in range(10):
+          M = E - e * math.sin(E)
+     return M
+
 r = 6371
 sr = 695700
 
@@ -51,7 +57,7 @@ AU = 149597870.7 #km
 width = 7
 height = 7
 
-scale = sr * 1.2
+scale = sr / AU * 1.5
 
 fig, ax = plt.subplots(figsize=(width, height))
 ln, = ax.plot([], [], 'o', color='blue')
@@ -84,6 +90,12 @@ def orbit(frame):
      t = frame /2 *speed
      M = 2 * math.pi * t / P
      E = calculate_E(M, e)
+
+
+     E = math.asin((-sr * 1.2) / a * math.sqrt(1 - e**2))
+     t = calculate_M(E, e) * P / 2 * math.pi
+
+
 
      x = a * math.sqrt(1 - e**2) * math.sin(E)
      y = 0
