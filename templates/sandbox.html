@@ -20,14 +20,19 @@
                <div class="orbit-video">
                     {{ animation | safe }}
                </div>
-               <div class="card-body">
-                    <h5 class="card-title">{{ planet.pl_name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">orbit simulation</h6>
-
-                    <i class="fa-solid fa-eye"></i> {{ planet.disc_telescope }} - {{ planet.discoverymethod }} ({{ planet.disc_year }})<br>
-                    <i class="fa-solid fa-sun"></i> {{ planet.hostname }}<br>
-                    <i class="fa-solid fa-weight-hanging"></i> {% if planet.pl_masse != None %}{{ planet.pl_masse }}x the mass of Earth {% else %}unknown{% endif %}<br>
                     
+               <div class="card-body">
+                    <h5 class="card-title">Sandbox simulation</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Make your own planet!</h6>
+
+                    <form method="POST">
+                         <label>Name</label>
+                         <input name="name" value="{{ session['name'] }}" placeholder="a random text">
+
+                         <label>Name</label>
+                         <input name="name" value="{{ session['name'] }}">
+                    </form>
+
                     <br>
 
                     <table><tr>

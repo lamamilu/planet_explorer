@@ -5,6 +5,7 @@ import json
 
 from utility import *
 from planet_sim import *
+from sandbox_sim import *
 
 
 
@@ -23,6 +24,15 @@ url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query="
 table = "pscomppars"
 columns = ["pl_name", "pl_masse", "disc_telescope", "hostname", "discoverymethod", "disc_year", "pl_orbeccen", "pl_orbper", "pl_orbsmax", "st_rad", "pl_rade"]
 # constraints = ["pl_name = 'Kepler-10 b / 16 Cyg B b'"] # "pl_masse between 0.9 and 1.1", "discoverymethod = 'Transit'", "sy_snum = 1"
+
+sandbox_planet = {
+     "name":"Earth",
+     "r":6371, # planet radius (km)
+     "sr":695700, # star radius (km)
+     "a":1.00,      # semi-major axis (AU)
+     "e":0.0167,     # eccentricity
+     "P":365.256       # days to orbit
+}
 
 
 @app.route("/<planet>", methods=["GET", "POST"])
@@ -69,7 +79,7 @@ def home(planet):
                
 
      print("MAKING AN ANIMATION (speed: "+str(speed)+")\n")
-     ani, planet_scale, star_scale, speed = orbit_animation(data, speed)
+     ani, planet_scale, star_scale, speed = pl_orbit_animation(data, speed)
 
      ani_list = ani.split('width="700" height="700"')
      animation = ani_list[0] + 'width="400" height="400"' + ani_list[1]
@@ -77,9 +87,41 @@ def home(planet):
      return render_template("home.html", planet=data, animation=animation, speed=speed, value=reverse_speed(speed), planet_scale=planet_scale, star_scale=star_scale)
 
 
+
 @app.route("/sandbox", methods=["GET", "POST"])
 def sandbox():
-     return render_template("sandbox.html")
+
+     speed = 1
+     session["planet"] = sandbox_planet
+
+     print("\n-----------------------------------------------------------------\n")
+
+     print("creating a planet:", session["planet"]["name"])
+     print(session["planet"])
+
+
+     if request.method == "POST":
+          action = request.form.get("action")
+
+          if action == "set-speed":
+               speed = int(request.form.get("speed"))
+               speed = convert_speed(speed)
+
+
+     
+
+
+     print("MAKING AN ANIMATION (speed: "+str(speed)+")\n")
+     ani, planet_scale, star_scale, speed = sb_orbit_animation(session["planet"], speed)
+
+     ani_list = ani.split('width="700" height="700"')
+     animation = ani_list[0] + 'width="400" height="400"' + ani_list[1]
+
+     print(session["planet"])
+     print(planet_scale, star_scale, speed)
+
+     return render_template("sandbox.html", animation=animation, speed=speed, value=reverse_speed(speed), planet_scale=planet_scale, star_scale=star_scale)
+
 
 
 

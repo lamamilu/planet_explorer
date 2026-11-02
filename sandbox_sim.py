@@ -10,19 +10,8 @@ from utility import *
 import requests
 import ffmpeg
 
-# url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query="
 
-# table = "pscomppars"
-# columns = ["pl_name", "pl_masse", "hostname", "pl_orbeccen", "pl_orbper", "pl_orbsmax", "st_rad", "pl_rade"]
-# constraints = ["pl_name = '16 Cyg B b'"] # 16 Cyg B b, Kepler-10 b
-
-# query = url + adql(table, columns, constraints)
-# p = requests.get(query)
-# print(p.status_code)
-# p = p.json()[0]
-# print(p)
-
-def orbit_animation(r, sr, a, e, P, speed):
+def sb_orbit_animation(p, speed):
 
      # *********** DATA ***********
 
@@ -31,6 +20,13 @@ def orbit_animation(r, sr, a, e, P, speed):
           for i in range(10):
                E = E - (E - e * math.sin(E) - M) / (1 - e * math.cos(E))
           return E
+
+     r = p["r"]
+     sr = p["sr"]
+
+     a = p["a"]      # AU
+     e = p["e"]     # eccentricity
+     P = p["P"]       # days to orbit
 
      t = 0                    # days since perihelion
      M = 2 * math.pi * t / P  # mean anomally
@@ -80,7 +76,7 @@ def orbit_animation(r, sr, a, e, P, speed):
 
      fig.canvas.draw()
      pixels_per_AU = ax.transData.transform((1, 0))[0] - ax.transData.transform((0, 0))[0]
-     earth_diameter_pixels = 2 * (r * 6371 / AU * 10) * pixels_per_AU # PLANET SCALE: *10
+     earth_diameter_pixels = 2 * (r / AU * 10) * pixels_per_AU # PLANET SCALE: *10
      earth_markersize = earth_diameter_pixels * 72 / fig.dpi 
      if earth_markersize < 8:
           earth_markersize = 8
@@ -88,7 +84,7 @@ def orbit_animation(r, sr, a, e, P, speed):
 
      planet_scale = earth_markersize * fig.dpi / 72 / 2 / pixels_per_AU / r / 6371 / (1/AU)
 
-     star_radius = sr * 695700 / AU
+     star_radius = sr / AU
      star_scale = 1
      if star_radius < scale / 20:
           star_radius = scale / 20
