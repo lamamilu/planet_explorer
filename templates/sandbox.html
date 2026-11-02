@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <script src="https://kit.fontawesome.com/8f8f6fb184.js" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <title>Exoplanet Orbit Sim</title>
+</head>
+<body class="container">
+     <br><br>
+
+     <!--<h1>NASA Exoplanet Archive ORBIT SIMULATOR</h1>-->
+
+     <br>
+
+     <div class="card" style="max-height: 402px;">
+          <div class="d-flex flex-column flex-md-row">
+               <div class="orbit-video">
+                    {{ animation | safe }}
+               </div>
+               <div class="card-body">
+                    <h5 class="card-title">{{ planet.pl_name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">orbit simulation</h6>
+
+                    <i class="fa-solid fa-eye"></i> {{ planet.disc_telescope }} - {{ planet.discoverymethod }} ({{ planet.disc_year }})<br>
+                    <i class="fa-solid fa-sun"></i> {{ planet.hostname }}<br>
+                    <i class="fa-solid fa-weight-hanging"></i> {% if planet.pl_masse != None %}{{ planet.pl_masse }}x the mass of Earth {% else %}unknown{% endif %}<br>
+                    
+                    <br>
+
+                    <table><tr>
+                         <form method="POST">
+                              <td>
+                                   <label for="range1" class="form-label"><b>Speed</b> ({{ speed }}):</label>
+                                   <div class="form-range theme-info" style="width:200px;">
+                                        <input type="range" name="speed" class="form-range-input" min="-51" max="49" step="5" value="{{ value }}" list="rangeTicksList" id="rangeTicks">
+                                   </div>
+                                        <datalist id="rangeTicksList">
+                                        <option value="-50" label="Slow"></option>
+                                        <option value="-25"></option>
+                                        <option value="0" label="Accurate"></option>
+                                        <option value="25"></option>
+                                        <option value="50" label="Fast"></option>
+                                   </datalist>
+                                   <button type="submit" name="action" value="set-speed" class="btn btn-info">Apply</button>
+                              </form>
+                         </td>
+
+                         <td>
+                              <b>Scale</b> (enlarged for visibility):
+                              <p>
+                                   Planet: {{ planet_scale }}x    <br>
+                                   Star: {{ star_scale }}x
+                              </p>
+                         </td>
+
+                    </tr></table>
+               </div>
+          </div>
+     </div>
+
+</body>
+</html>

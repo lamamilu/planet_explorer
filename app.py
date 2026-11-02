@@ -77,6 +77,12 @@ def home(planet):
      return render_template("home.html", planet=data, animation=animation, speed=speed, value=reverse_speed(speed), planet_scale=planet_scale, star_scale=star_scale)
 
 
+@app.route("/sandbox", methods=["GET", "POST"])
+def sandbox():
+     return render_template("sandbox.html")
+
+
+
 @app.route("/error/<code>", methods=["GET", "POST"])
 def error(code):
      return render_template("error.html", code=code, message=session.pop("message", None))

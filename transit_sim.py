@@ -43,8 +43,15 @@ a = 1.00      # AU
 e = 0.0167     # eccentricity
 P = 365.256       # days to orbit
 
-t = 0                    # days since perihelion
-M = 2 * math.pi * t / P  # mean anomally
+sr * 1.2 / (a * math.sqrt(1 - e**2)) = math.sin(E)
+
+
+E = math.asin((sr * 1.2) / (a * math.sqrt(1 - e**2)))
+t_max = calculate_M(E, e) * P / 2 * math.pi   
+t_min = P - t_max             
+
+
+M = 2 * math.pi * t_min / P  # mean anomally
 E = calculate_E(M, e)
 
 x = a * (math.cos(E) - e)
@@ -85,16 +92,21 @@ def init():
      ax.set_ylim(-(scale), scale)     
      return ln,
 
+
+right = True
 def orbit(frame):
 
-     t = frame /2 *speed
+     if right:
+          t = t_min + frame /2 *speed
+     elif not right:
+          t = t_min - frame /2 *speed
+
+     if t > t_max and t < t_min:
+          right = not right
+
+
      M = 2 * math.pi * t / P
      E = calculate_E(M, e)
-
-
-     E = math.asin((-sr * 1.2) / a * math.sqrt(1 - e**2))
-     t = calculate_M(E, e) * P / 2 * math.pi
-
 
 
      x = a * math.sqrt(1 - e**2) * math.sin(E)
