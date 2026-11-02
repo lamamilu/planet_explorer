@@ -116,15 +116,7 @@ def sb_orbit_animation(p, speed):
 
      fps = 60
 
-     frames = math.floor(P*2/speed)
-     if frames <= 60 * 1:
-          speed = P*2/60
-          frames = math.floor(P*2/speed)
-     elif frames > 60 * 10:
-          speed = P*2/600
-          frames = math.floor(P*2/speed)
-
-     ani = FuncAnimation(fig, orbit, frames=frames, interval=1000/fps, init_func=init, blit=False)
+     ani = FuncAnimation(fig, orbit, frames=math.floor(P*2/speed), interval=1000/fps, init_func=init, blit=False)
 
      video = ani.to_html5_video()
      plt.close(fig)

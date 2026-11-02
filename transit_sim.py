@@ -43,7 +43,7 @@ a = 1.00      # AU
 e = 0.0167     # eccentricity
 P = 365.256       # days to orbit
 
-sr * 1.2 / (a * math.sqrt(1 - e**2)) = math.sin(E)
+# sr * 1.2 / (a * math.sqrt(1 - e**2)) = math.sin(E)
 
 
 E = math.asin((sr * 1.2) / (a * math.sqrt(1 - e**2)))

@@ -91,8 +91,13 @@ def home(planet):
 @app.route("/sandbox", methods=["GET", "POST"])
 def sandbox():
 
-     speed = 1
      session["planet"] = sandbox_planet
+
+     P = session["planet"]["P"]
+     min_speed = reverse_speed(P*2/60)
+     max_speed = reverse_speed(P*2/600)
+
+     speed = (max_speed + min_speed)/2
 
      print("\n-----------------------------------------------------------------\n")
 
@@ -108,9 +113,6 @@ def sandbox():
                speed = convert_speed(speed)
 
 
-     
-
-
      print("MAKING AN ANIMATION (speed: "+str(speed)+")\n")
      ani, planet_scale, star_scale, speed = sb_orbit_animation(session["planet"], speed)
 
@@ -120,7 +122,7 @@ def sandbox():
      print(session["planet"])
      print(planet_scale, star_scale, speed)
 
-     return render_template("sandbox.html", animation=animation, speed=speed, value=reverse_speed(speed), planet_scale=planet_scale, star_scale=star_scale)
+     return render_template("sandbox.html", min_speed=min_speed, max_speed=max_speed, step=(max_speed-min_speed)/20, animation=animation, speed=speed, value=reverse_speed(speed), planet_scale=planet_scale, star_scale=star_scale)
 
 
 

@@ -40,15 +40,8 @@
                               <td>
                                    <label for="range1" class="form-label"><b>Speed</b> ({{ speed }}):</label>
                                    <div class="form-range theme-info" style="width:200px;">
-                                        <input type="range" name="speed" class="form-range-input" min="-51" max="49" step="5" value="{{ value }}" list="rangeTicksList" id="rangeTicks">
+                                        <input type="range" name="speed" class="form-range-input" min="{{ min_speed }}" max="{{ max_speed }}" step="{{ step }}" value="{{ value }}" list="rangeTicksList" id="rangeTicks">
                                    </div>
-                                        <datalist id="rangeTicksList">
-                                        <option value="-50" label="Slow"></option>
-                                        <option value="-25"></option>
-                                        <option value="0" label="Accurate"></option>
-                                        <option value="25"></option>
-                                        <option value="50" label="Fast"></option>
-                                   </datalist>
                                    <button type="submit" name="action" value="set-speed" class="btn btn-info">Apply</button>
                               </form>
                          </td>
